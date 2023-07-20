@@ -1,20 +1,15 @@
 package com.example.blogspringboot.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import jakarta.persistence.OneToMany;
+import lombok.Data;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@NoArgsConstructor
+
 @Data
-public class NormalUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class NormalUser  {
     private String username;
     private String email;
     private String password;
@@ -28,10 +23,10 @@ public class NormalUser {
 
     @OneToMany
     private List<BlogReaction> blogReactions = new ArrayList<>();
-
-    @OneToMany
-    private List<Comments> comments = new ArrayList<>();
-
-    @OneToMany
-    private List<CommentReaction> commentReactions = new ArrayList<>();
+//
+//    @OneToMany
+//    private List<Comments> comments = new ArrayList<>();
+//
+//    @OneToMany
+//    private List<CommentReaction> commentReactions = new ArrayList<>();
 }

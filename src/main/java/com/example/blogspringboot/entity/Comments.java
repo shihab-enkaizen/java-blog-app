@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Entity(name="comments")
+@Entity
+@Table(name="comments")
 @NoArgsConstructor
 @Data
 public class Comments {
@@ -17,11 +18,11 @@ public class Comments {
     private String comment;
     private OffsetDateTime createdAt;
 
-    @ManyToOne
+    @OneToOne
     private Blogs blog;
 
-    @ManyToOne
-    private ProUser user;
+    @ManyToMany
+    private List<ProUser> user;
 
     @OneToMany
     private List<CommentReaction> commentReactions;

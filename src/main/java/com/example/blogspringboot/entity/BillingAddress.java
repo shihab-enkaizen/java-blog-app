@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity(name="billingaddresses")
+@Entity(name="billingaddress")
 @NoArgsConstructor
 @Data
 public class BillingAddress {
@@ -19,6 +19,6 @@ public class BillingAddress {
     private String city;
     private String address;
 
-    @ManyToMany
-    private List<ProUser> userList = new ArrayList<>();
+    @OneToOne
+    private ProUser userList;
 }

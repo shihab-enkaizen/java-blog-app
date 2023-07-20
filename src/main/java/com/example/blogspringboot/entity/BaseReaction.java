@@ -8,11 +8,9 @@ import lombok.Data;
 
 import java.time.OffsetDateTime;
 
-@Entity
-public class BaseReaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+
+public abstract class BaseReaction {
+
     private Reaction reaction;
     private OffsetDateTime createdAt;
 }

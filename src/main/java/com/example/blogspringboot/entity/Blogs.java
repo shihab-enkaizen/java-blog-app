@@ -8,7 +8,8 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name="blogs")
+@Entity
+@Table(name = "blogs")
 @NoArgsConstructor
 @Data
 public class Blogs {
@@ -19,7 +20,8 @@ public class Blogs {
     private Status status;
     private String description;
     private OffsetDateTime publishDate;
-    @ManyToOne
+
+    @OneToOne
     private ProUser user;
 
     @OneToMany
