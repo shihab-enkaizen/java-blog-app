@@ -14,5 +14,5 @@ public class BaseReaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Reaction reaction;
-    private OffsetDateTime timestamp;
+    private OffsetDateTime createdAt;
 }

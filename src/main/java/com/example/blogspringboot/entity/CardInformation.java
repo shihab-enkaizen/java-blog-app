@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity(name="cardinformations")
 @NoArgsConstructor
 @Data
@@ -16,6 +18,6 @@ public class CardInformation {
     private String cvc;
     private String cardHolderName;
 
-    @ManyToOne
-    private ProUser user;
+    @ManyToMany
+    private List<ProUser> user;
 }
