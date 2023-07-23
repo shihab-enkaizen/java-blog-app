@@ -19,6 +19,6 @@ public class BillingAddress {
     private String city;
     private String address;
 
-    @OneToOne
+    @ManyToOne
     private ProUser userList;
 }

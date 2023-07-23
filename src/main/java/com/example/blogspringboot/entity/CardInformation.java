@@ -18,6 +18,6 @@ public class CardInformation {
     private String cvc;
     private String cardHolderName;
 
-    @OneToOne
+    @ManyToOne
     private ProUser user;
 }
