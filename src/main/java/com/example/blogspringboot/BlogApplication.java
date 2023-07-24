@@ -19,17 +19,19 @@ public class BlogApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Role role1 = new Role();
-        role1.setRoleType(RoleType.ADMIN);
-        roleRepository.save(role1);
+        if(roleRepository.count() == 0) {
+            Role role1 = new Role();
+            role1.setRoleType(RoleType.ADMIN);
+            roleRepository.save(role1);
 
-        Role role2 = new Role();
-        role2.setRoleType(RoleType.BLOGGER);
-        roleRepository.save(role2);
+            Role role2 = new Role();
+            role2.setRoleType(RoleType.BLOGGER);
+            roleRepository.save(role2);
 
-        Role role3 = new Role();
-        role3.setRoleType(RoleType.COMMENTER);
-        roleRepository.save(role3);
+            Role role3 = new Role();
+            role3.setRoleType(RoleType.COMMENTER);
+            roleRepository.save(role3);
+        }
 
 
     }

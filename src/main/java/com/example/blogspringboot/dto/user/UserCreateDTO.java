@@ -16,9 +16,9 @@ public class UserCreateDTO {
     private OffsetDateTime dateOfBirth;
     private String firstName;
     private String lastName;
-    private Boolean isProAccount;
+    private Boolean isProAccount = false;
     private String billingCity;
     private String billingAddress;
-//    private List<Role> roles;
+    private List<Role> roles;
 
 }

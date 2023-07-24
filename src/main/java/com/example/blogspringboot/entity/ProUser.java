@@ -15,9 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class ProUser extends NormalUser {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @OneToMany
     private List<BillingAddress> billingAddresses = new ArrayList<>();
