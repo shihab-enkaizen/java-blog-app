@@ -28,10 +28,7 @@ public class UserServiceImpl implements UserService {
         user.setDateOfBirth(dto.getDateOfBirth());
         user.setRoles(dto.getRoles());
         if(dto.getIsProAccount() && this.validateAge(dto.getDateOfBirth())) {
-            BillingAddress billingAddress = new BillingAddress();
-            billingAddress.setAddress(dto.getBillingAddress());
-            billingAddress.setCity(dto.getBillingCity());
-            user.setBillingAddresses(new ArrayList<>());
+            user.setBillingAddresses(dto.getBillingAddressesList());
         }
         return repository.save(user);
     }

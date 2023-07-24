@@ -1,5 +1,6 @@
 package com.example.blogspringboot.dto.user;
 
+import com.example.blogspringboot.entity.BillingAddress;
 import com.example.blogspringboot.entity.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,7 @@ public class UserCreateDTO {
     private String firstName;
     private String lastName;
     private Boolean isProAccount = false;
-    private String billingCity;
-    private String billingAddress;
     private List<Role> roles;
+    private List<BillingAddress> billingAddressesList;
 
 }

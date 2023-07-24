@@ -1,9 +1,7 @@
 package com.example.blogspringboot.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,4 +19,11 @@ public class BillingAddress {
 
     @ManyToOne
     private ProUser userList;
+
+
+    public BillingAddress(Long id, String city, String address) {
+        this.id = id;
+        this.city = city;
+        this.address = address;
+    }
 }

@@ -17,8 +17,8 @@ import java.util.List;
 public class ProUser extends NormalUser {
 
     @OneToMany
-    private List<BillingAddress> billingAddresses = new ArrayList<>();
+    private List<BillingAddress> billingAddresses;
 
     @OneToMany
-    private List<CardInformation> cardInformation = new ArrayList<>();
+    private List<CardInformation> cardInformation;
 }
