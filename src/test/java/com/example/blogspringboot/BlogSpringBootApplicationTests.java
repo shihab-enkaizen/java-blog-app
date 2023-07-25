@@ -66,6 +66,7 @@ class BlogSpringBootApplicationTests {
         roles.add(new Role(2L, RoleType.BLOGGER));
         roles.add(new Role(3L, RoleType.COMMENTER));
 
+
         List<BillingAddress> billingAddresses = billingAddressRepository.findAll();
 
         user.setEmail("pro@gmail.com");
@@ -76,7 +77,7 @@ class BlogSpringBootApplicationTests {
         user.setRoles(roles);
         user.setIsProAccount(true);
         user.setBillingAddressesList(billingAddresses);
-        user.setDateOfBirth(OffsetDateTime.of(2015,11,7, 0,0,0,0, ZoneOffset.UTC));
+        user.setDateOfBirth(OffsetDateTime.of(1990,11,7, 0,0,0,0, ZoneOffset.UTC));
 
         mockMvc.perform(post("/api/users")
                         .content(objectMapper.writeValueAsString(user))

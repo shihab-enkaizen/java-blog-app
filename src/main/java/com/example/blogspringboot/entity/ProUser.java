@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 public class ProUser extends NormalUser {
 
-    @OneToMany
+    @ManyToMany
     private List<BillingAddress> billingAddresses;
 
     @OneToMany

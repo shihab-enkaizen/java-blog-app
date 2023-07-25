@@ -17,8 +17,8 @@ public class BillingAddress {
     private String city;
     private String address;
 
-    @ManyToOne
-    private ProUser userList;
+    @ManyToMany(mappedBy = "billingAddresses")
+    private List<ProUser> users = new ArrayList<>();
 
 
     public BillingAddress(Long id, String city, String address) {

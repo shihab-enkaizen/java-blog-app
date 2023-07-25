@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     @Override
-    public ProUser createUser(UserCreateDTO dto) {
+    public ProUser createUser(UserCreateDTO dto) throws Exception {
         ProUser user = new ProUser();
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
@@ -27,8 +27,12 @@ public class UserServiceImpl implements UserService {
         user.setUsername(dto.getUsername());
         user.setDateOfBirth(dto.getDateOfBirth());
         user.setRoles(dto.getRoles());
-        if(dto.getIsProAccount() && this.validateAge(dto.getDateOfBirth())) {
-            user.setBillingAddresses(dto.getBillingAddressesList());
+        if(dto.getIsProAccount()) {
+            if(this.validateAge(dto.getDateOfBirth())) {
+                user.setBillingAddresses(dto.getBillingAddressesList());
+            }else{
+                throw new Exception("Age must be at least 15");
+            }
         }
         return repository.save(user);
     }
