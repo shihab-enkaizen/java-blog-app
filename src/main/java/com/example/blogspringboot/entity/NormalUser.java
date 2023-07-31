@@ -4,6 +4,7 @@ package com.example.blogspringboot.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,5 +24,9 @@ public class NormalUser  {
 
     @OneToMany
     private List<Role> roles;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Blog> blogs = new ArrayList<>();
+
 
 }

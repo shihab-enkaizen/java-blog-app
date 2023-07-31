@@ -2,5 +2,6 @@ package com.example.blogspringboot.entity;
 
 public enum Status {
     ACTIVE,
-    INACTIVE
+    INACTIVE,
+    REJECT
 }

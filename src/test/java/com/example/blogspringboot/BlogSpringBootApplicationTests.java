@@ -1,10 +1,12 @@
 package com.example.blogspringboot;
 
 import com.example.blogspringboot.dao.billingaddress.BillingAddressRepository;
+import com.example.blogspringboot.dto.blog.BlogCreateDTO;
 import com.example.blogspringboot.dto.user.UserCreateDTO;
 import com.example.blogspringboot.entity.BillingAddress;
 import com.example.blogspringboot.entity.Role;
 import com.example.blogspringboot.entity.RoleType;
+import com.example.blogspringboot.entity.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -86,8 +88,20 @@ class BlogSpringBootApplicationTests {
                 .andExpect(jsonPath("$.username").value("prouser"));
     }
 
-    //add pro user with existing billing address
-    // add pro user with new Billing address
-    // convert normal account into pro account
+    @Test
+    public void addNewBlog() throws Exception {
+        BlogCreateDTO blog = new BlogCreateDTO();
+        blog.setTitle("New Blog");
+        blog.setDescription("Dummy Description");
+        blog.setPublishDate(OffsetDateTime.of(1990,11,7, 0,0,0,0, ZoneOffset.UTC));
+        blog.setUserID(1L);
+
+        mockMvc.perform(post("/api/blogs")
+                        .content(objectMapper.writeValueAsString(blog))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value("New Blog"));
+    }
+
 
 }
