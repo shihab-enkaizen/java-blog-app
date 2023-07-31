@@ -1,5 +1,6 @@
 package com.example.blogspringboot.service.user.impl;
 
+import com.example.blogspringboot.dao.billingaddress.BillingAddressRepository;
 import com.example.blogspringboot.dao.user.UserRepository;
 import com.example.blogspringboot.dto.user.UserCreateDTO;
 import com.example.blogspringboot.entity.BillingAddress;
@@ -11,11 +12,13 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
+    private final BillingAddressRepository billingAddressRepository;
 
     @Override
     public ProUser createUser(UserCreateDTO dto) throws Exception {
@@ -29,7 +32,18 @@ public class UserServiceImpl implements UserService {
         user.setRoles(dto.getRoles());
         if(dto.getIsProAccount()) {
             if(this.validateAge(dto.getDateOfBirth())) {
-                user.setBillingAddresses(dto.getBillingAddressesList());
+                List<BillingAddress> billingAddressList = new ArrayList<>();
+
+                for (Long id : dto.getBillingAddressesIdList()) {
+                    BillingAddress find = billingAddressRepository.findBillingAddressByIdEquals(id);
+                    if(find != null) {
+                        billingAddressList.add(find);
+                    }else{
+                        throw new Exception("Billing Id not found");
+                    }
+                }
+
+                user.setBillingAddresses(billingAddressList);
             }else{
                 throw new Exception("Age must be at least 15");
             }

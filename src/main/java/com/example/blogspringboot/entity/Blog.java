@@ -23,4 +23,7 @@ public class Blog {
     @OneToOne(cascade = CascadeType.ALL)
     private ProUser user;
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

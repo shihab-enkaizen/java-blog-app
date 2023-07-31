@@ -25,6 +25,6 @@ public class UserResponseDTO {
         this.dateOfBirth = user.getDateOfBirth();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.roles = user.getRoles();
+//        this.roles = user.getRoles();
     }
 }

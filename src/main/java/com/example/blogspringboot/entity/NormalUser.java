@@ -22,10 +22,10 @@ public class NormalUser  {
     private String firstName;
     private String lastName;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Role> roles;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     private List<Blog> blogs = new ArrayList<>();
 
 

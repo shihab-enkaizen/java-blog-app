@@ -21,8 +21,7 @@ public class Role {
     @ManyToMany
     private List<ProUser> user;
 
-    public Role(Long id, RoleType roleType) {
-        this.id = id;
+    public Role(RoleType roleType) {
         this.roleType = roleType;
     }
 }

@@ -19,6 +19,6 @@ public class UserCreateDTO {
     private String lastName;
     private Boolean isProAccount = false;
     private List<Role> roles;
-    private List<BillingAddress> billingAddressesList;
+    private List<Long> billingAddressesIdList;
 
 }

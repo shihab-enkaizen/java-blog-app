@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface BillingAddressRepository extends JpaRepository<BillingAddress, Long> {
+    BillingAddress findBillingAddressByIdEquals(Long id);
 
 }

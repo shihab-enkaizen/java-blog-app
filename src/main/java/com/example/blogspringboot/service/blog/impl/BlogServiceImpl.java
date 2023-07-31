@@ -3,13 +3,12 @@ package com.example.blogspringboot.service.blog.impl;
 import com.example.blogspringboot.dao.blog.BlogRepository;
 import com.example.blogspringboot.dao.user.UserRepository;
 import com.example.blogspringboot.dto.blog.BlogCreateDTO;
-import com.example.blogspringboot.entity.Blog;
-import com.example.blogspringboot.entity.ProUser;
-import com.example.blogspringboot.entity.RoleType;
-import com.example.blogspringboot.entity.Status;
+import com.example.blogspringboot.entity.*;
 import com.example.blogspringboot.service.blog.BlogService;
 import com.example.blogspringboot.service.user.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -25,11 +24,11 @@ public class BlogServiceImpl implements BlogService {
     public Blog createBlog(BlogCreateDTO dto) {
         Blog blog = new Blog();
         ProUser user = userRepository.findProUsersById(dto.getUserID());
-        if(user.getRoles().contains(RoleType.BLOGGER)) {
+        if(this.checkRole(user.getRoles(), RoleType.BLOGGER)) {
             blog.setTitle(dto.getTitle());
             blog.setDescription(dto.getDescription());
 
-            if(user.getRoles().contains(RoleType.ADMIN)) {
+            if(user.getBillingAddresses() != null) {
                 blog.setStatus(Status.ACTIVE);
             }else{
                 blog.setStatus(Status.INACTIVE);
@@ -38,8 +37,62 @@ public class BlogServiceImpl implements BlogService {
             blog.setPublishDate(dto.getPublishDate());
             blog.setUser(user);
         }
-
-
         return blogRepository.save(blog);
+    }
+
+    @Override
+    public Blog updateBlog(BlogCreateDTO dto) throws Exception {
+        Blog blog = blogRepository.findById(dto.getId()).orElseThrow();
+        if(!blog.getStatus().equals(Status.ACTIVE)) {
+            ProUser user = userRepository.findProUsersById(dto.getUserID());
+            if(this.checkRole(user.getRoles(), RoleType.BLOGGER)) {
+                blog.setTitle(dto.getTitle());
+                blog.setDescription(dto.getDescription());
+
+                if(this.checkRole(user.getRoles(), RoleType.ADMIN)) {
+                    blog.setStatus(Status.ACTIVE);
+                }else{
+                    blog.setStatus(Status.INACTIVE);
+                }
+
+                blog.setPublishDate(dto.getPublishDate());
+                blog.setUser(user);
+            }
+            return blogRepository.save(blog);
+        }else{
+            throw new Exception("Blog is already Active");
+        }
+    }
+
+    @Override
+    public Blog approveBlog(BlogCreateDTO dto) throws Exception {
+        ProUser user = userRepository.findProUsersById(dto.getUserID());
+        if(this.checkRole(user.getRoles(), RoleType.ADMIN)) {
+            Blog blog = blogRepository.findById(dto.getId()).orElseThrow();
+            if(!blog.getStatus().equals(Status.ACTIVE)) {
+                blog.setStatus(Status.ACTIVE);
+                return blogRepository.save(blog);
+            }else{
+                throw new Exception("Blog is already active");
+            }
+        }else {
+            throw new Exception("Your role must be admin to approve blog");
+        }
+    }
+
+    public void deleteBlog(Long id) {
+        blogRepository.deleteById(id);
+    }
+
+
+    private boolean checkRole(List<Role> roles, RoleType roleType) {
+        boolean isContainRole = false;
+        for (Role role : roles) {
+            if (role.getRoleType().equals(roleType)) {
+                isContainRole = true;
+                break; // Exit the loop as we have found the role
+            }
+        }
+        return isContainRole;
     }
 }

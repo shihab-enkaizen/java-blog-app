@@ -18,4 +18,14 @@ public class BlogController {
     public BlogResponseDTO createBlog(@RequestBody BlogCreateDTO dto) {
         return new BlogResponseDTO(service.createBlog(dto));
     }
+
+    @PutMapping("/{id}")
+    public BlogResponseDTO updateBlog(@RequestBody BlogCreateDTO dto) throws Exception {
+        return new BlogResponseDTO(service.updateBlog(dto));
+    }
+
+    @PutMapping("/{id}/approve-blog")
+    public BlogResponseDTO approveBlog(@RequestBody BlogCreateDTO dto) throws Exception {
+        return new BlogResponseDTO(service.approveBlog(dto));
+    }
 }

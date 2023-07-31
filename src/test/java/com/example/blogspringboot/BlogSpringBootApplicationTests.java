@@ -35,16 +35,12 @@ class BlogSpringBootApplicationTests {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Autowired
-    private BillingAddressRepository billingAddressRepository;
-
-
     @Test
     public void addNormalUser() throws Exception {
         UserCreateDTO user = new UserCreateDTO();
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role(1L, RoleType.ADMIN));
-        roles.add(new Role(2L, RoleType.BLOGGER));
+        roles.add(new Role(RoleType.ADMIN));
+        roles.add(new Role(RoleType.BLOGGER));
         user.setEmail("example@gmail.com");
         user.setPassword("111111");
         user.setUsername("usertest");
@@ -64,12 +60,15 @@ class BlogSpringBootApplicationTests {
     public void addProUserWithExistingBillingAddress() throws Exception {
         UserCreateDTO user = new UserCreateDTO();
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role(1L, RoleType.ADMIN));
-        roles.add(new Role(2L, RoleType.BLOGGER));
-        roles.add(new Role(3L, RoleType.COMMENTER));
+        roles.add(new Role(RoleType.ADMIN));
+        roles.add(new Role(RoleType.BLOGGER));
+        roles.add(new Role(RoleType.COMMENTER));
 
+        List<Long> billingAddresses = new ArrayList<>();
 
-        List<BillingAddress> billingAddresses = billingAddressRepository.findAll();
+       billingAddresses.add(1L);
+       billingAddresses.add(2L);
+       billingAddresses.add(3L);
 
         user.setEmail("pro@gmail.com");
         user.setPassword("111111");
@@ -78,7 +77,7 @@ class BlogSpringBootApplicationTests {
         user.setLastName("Test");
         user.setRoles(roles);
         user.setIsProAccount(true);
-        user.setBillingAddressesList(billingAddresses);
+        user.setBillingAddressesIdList(billingAddresses);
         user.setDateOfBirth(OffsetDateTime.of(1990,11,7, 0,0,0,0, ZoneOffset.UTC));
 
         mockMvc.perform(post("/api/users")
@@ -91,16 +90,28 @@ class BlogSpringBootApplicationTests {
     @Test
     public void addNewBlog() throws Exception {
         BlogCreateDTO blog = new BlogCreateDTO();
-        blog.setTitle("New Blog");
+        blog.setTitle("New Blog 4");
         blog.setDescription("Dummy Description");
         blog.setPublishDate(OffsetDateTime.of(1990,11,7, 0,0,0,0, ZoneOffset.UTC));
-        blog.setUserID(1L);
+        blog.setUserID(2L);
 
         mockMvc.perform(post("/api/blogs")
                         .content(objectMapper.writeValueAsString(blog))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("New Blog"));
+                .andExpect(jsonPath("$.title").value("New Blog 4"));
+    }
+
+    @Test
+    public void approveBlog() throws Exception {
+        BlogCreateDTO blog = new BlogCreateDTO();
+        blog.setId(1L);
+
+        mockMvc.perform(post("/api/blogs/"+blog.getId()+"/approve-blog")
+                        .content(objectMapper.writeValueAsString(blog))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.title").value("New Blog 4"));
     }
 
 

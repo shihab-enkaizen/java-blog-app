@@ -9,7 +9,8 @@ import java.util.List;
 
 @Entity(name="billingaddress")
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class BillingAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +22,7 @@ public class BillingAddress {
     private List<ProUser> users = new ArrayList<>();
 
 
-    public BillingAddress(Long id, String city, String address) {
-        this.id = id;
+    public BillingAddress(String city, String address) {
         this.city = city;
         this.address = address;
     }
