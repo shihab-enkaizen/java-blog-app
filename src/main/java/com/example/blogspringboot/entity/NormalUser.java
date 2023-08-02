@@ -28,5 +28,8 @@ public class NormalUser  {
     @OneToMany(mappedBy = "user")
     private List<Blog> blogs = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<BlogReaction> blogReactions = new ArrayList<>();
+
 
 }

@@ -24,6 +24,9 @@ public class Blog {
     @ManyToOne(cascade = CascadeType.ALL)
     private ProUser user;
 
+    @OneToOne
+    private BlogReaction blogReaction;
+
     public void setStatus(Status status) {
         this.status = status;
     }
