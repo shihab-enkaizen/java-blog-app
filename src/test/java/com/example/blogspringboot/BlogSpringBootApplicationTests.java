@@ -90,16 +90,16 @@ class BlogSpringBootApplicationTests {
     @Test
     public void addNewBlog() throws Exception {
         BlogCreateDTO blog = new BlogCreateDTO();
-        blog.setTitle("New Blog 4");
+        blog.setTitle("New Blog 5");
         blog.setDescription("Dummy Description");
         blog.setPublishDate(OffsetDateTime.of(1990,11,7, 0,0,0,0, ZoneOffset.UTC));
-        blog.setUserID(2L);
+        blog.setUserID(1L);
 
         mockMvc.perform(post("/api/blogs")
                         .content(objectMapper.writeValueAsString(blog))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("New Blog 4"));
+                .andExpect(jsonPath("$.title").value("New Blog 5"));
     }
 
     @Test

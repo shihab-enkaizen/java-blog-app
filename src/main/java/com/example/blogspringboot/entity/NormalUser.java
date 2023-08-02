@@ -25,7 +25,7 @@ public class NormalUser  {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Role> roles;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Blog> blogs = new ArrayList<>();
 
 

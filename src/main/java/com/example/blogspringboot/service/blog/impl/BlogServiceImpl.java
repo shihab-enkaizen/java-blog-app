@@ -57,8 +57,11 @@ public class BlogServiceImpl implements BlogService {
 
                 blog.setPublishDate(dto.getPublishDate());
                 blog.setUser(user);
+                return blogRepository.save(blog);
+
             }
-            return blogRepository.save(blog);
+            throw new Exception("Role is not blogger");
+
         }else{
             throw new Exception("Blog is already Active");
         }
@@ -68,7 +71,13 @@ public class BlogServiceImpl implements BlogService {
     public Blog approveBlog(BlogCreateDTO dto) throws Exception {
         ProUser user = userRepository.findProUsersById(dto.getUserID());
         if(this.checkRole(user.getRoles(), RoleType.ADMIN)) {
-            Blog blog = blogRepository.findById(dto.getId()).orElseThrow();
+            Blog blog = blogRepository.findById(dto.getId()).orElseThrow(() -> {
+                try {
+                    throw new Exception("Blog not found");
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
             if(!blog.getStatus().equals(Status.ACTIVE)) {
                 blog.setStatus(Status.ACTIVE);
                 return blogRepository.save(blog);

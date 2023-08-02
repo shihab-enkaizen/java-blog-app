@@ -16,11 +16,12 @@ public class Blog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Enumerated(EnumType.STRING)
     private Status status;
     private String description;
     private OffsetDateTime publishDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private ProUser user;
 
     public void setStatus(Status status) {
