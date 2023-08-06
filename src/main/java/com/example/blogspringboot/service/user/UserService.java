@@ -5,4 +5,6 @@ import com.example.blogspringboot.entity.ProUser;
 
 public interface UserService {
     ProUser createUser(UserCreateDTO dto) throws Exception;
+
+    ProUser getUser(Long id) throws Exception;
 }

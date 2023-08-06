@@ -25,7 +25,9 @@ public class BlogController {
     }
 
     @PutMapping("/{id}/approve-blog")
-    public BlogResponseDTO approveBlog(@RequestBody BlogCreateDTO dto) throws Exception {
+    public BlogResponseDTO approveBlog(@PathVariable Long id,  @RequestBody BlogCreateDTO dto) throws Exception {
+        dto.setId(id);
         return new BlogResponseDTO(service.approveBlog(dto));
     }
+
 }

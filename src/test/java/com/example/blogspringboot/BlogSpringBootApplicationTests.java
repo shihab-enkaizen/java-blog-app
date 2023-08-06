@@ -2,11 +2,9 @@ package com.example.blogspringboot;
 
 import com.example.blogspringboot.dao.billingaddress.BillingAddressRepository;
 import com.example.blogspringboot.dto.blog.BlogCreateDTO;
+import com.example.blogspringboot.dto.reaction.BlogReactionDTO;
 import com.example.blogspringboot.dto.user.UserCreateDTO;
-import com.example.blogspringboot.entity.BillingAddress;
-import com.example.blogspringboot.entity.Role;
-import com.example.blogspringboot.entity.RoleType;
-import com.example.blogspringboot.entity.Status;
+import com.example.blogspringboot.entity.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -105,14 +103,45 @@ class BlogSpringBootApplicationTests {
     @Test
     public void approveBlog() throws Exception {
         BlogCreateDTO blog = new BlogCreateDTO();
-        blog.setId(1L);
+        blog.setUserID(1L);
 
-        mockMvc.perform(post("/api/blogs/"+blog.getId()+"/approve-blog")
+        mockMvc.perform(put("/api/blogs/1/approve-blog")
                         .content(objectMapper.writeValueAsString(blog))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("New Blog 4"));
+                .andExpect(jsonPath("$.title").value("New Blog 5"));
     }
+
+    @Test
+    public void addBlogReaction() throws Exception {
+        BlogReactionDTO dto = new BlogReactionDTO();
+        dto.setBlogId(1L);
+        dto.setReactionType(ReactionType.LIKE);
+        dto.setUserId(1L);
+
+        mockMvc.perform(post("/api/reactions/blog-reaction/1")
+                        .content(objectMapper.writeValueAsString(dto))
+                        .contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void updateBlogReaction() throws Exception {
+        BlogReactionDTO dto = new BlogReactionDTO();
+        dto.setBlogId(1L);
+        dto.setReactionType(ReactionType.HAHA);
+        dto.setUserId(1L);
+
+        mockMvc.perform(put("/api/reactions/blog-reaction/1")
+                .content(objectMapper.writeValueAsString(dto))
+                .contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void deleteBlogReaction() throws Exception {
+        mockMvc.perform(delete("/api/reactions/blog-reaction/1"));
+    }
+
+
 
 
 }

@@ -104,4 +104,13 @@ public class BlogServiceImpl implements BlogService {
         }
         return isContainRole;
     }
+
+    public Blog getBlog(Long id) throws Exception {
+        Blog blog = blogRepository.findById(id).orElse(null);
+        if(blog != null) {
+            return blog;
+        }else{
+            throw new Exception("Blog not found");
+        }
+    }
 }

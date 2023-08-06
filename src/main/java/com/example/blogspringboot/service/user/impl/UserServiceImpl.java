@@ -4,6 +4,7 @@ import com.example.blogspringboot.dao.billingaddress.BillingAddressRepository;
 import com.example.blogspringboot.dao.user.UserRepository;
 import com.example.blogspringboot.dto.user.UserCreateDTO;
 import com.example.blogspringboot.entity.BillingAddress;
+import com.example.blogspringboot.entity.Blog;
 import com.example.blogspringboot.entity.ProUser;
 import com.example.blogspringboot.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -57,4 +58,15 @@ public class UserServiceImpl implements UserService {
         int ageInYears = period.getYears();
         return ageInYears >= 15;
     }
+
+    @Override
+    public ProUser getUser(Long id) throws Exception {
+        ProUser user = repository.findById(id).orElse(null);
+        if(user != null) {
+            return user;
+        }else{
+            throw new Exception("User not found");
+        }
+    }
+
 }

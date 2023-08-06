@@ -21,6 +21,7 @@ public class NormalUser  {
     private OffsetDateTime dateOfBirth;
     private String firstName;
     private String lastName;
+    private boolean isActive = false;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Role> roles;
@@ -28,7 +29,7 @@ public class NormalUser  {
     @OneToMany(mappedBy = "user")
     private List<Blog> blogs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany
     private List<BlogReaction> blogReactions = new ArrayList<>();
 
 

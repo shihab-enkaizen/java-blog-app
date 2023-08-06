@@ -4,5 +4,6 @@ import com.example.blogspringboot.dto.reaction.BlogReactionDTO;
 import com.example.blogspringboot.entity.BlogReaction;
 
 public interface ReactionService {
-    BlogReaction blogReaction(BlogReactionDTO dto);
+    BlogReaction blogReaction(BlogReactionDTO dto) throws Exception;
+    void deleteBlogReaction(Long id) throws Exception;
 }

@@ -1,6 +1,7 @@
 package com.example.blogspringboot.dto.blog;
 
 import com.example.blogspringboot.entity.Blog;
+import com.example.blogspringboot.entity.BlogReaction;
 import com.example.blogspringboot.entity.Status;
 import lombok.Data;
 import lombok.NoArgsConstructor;

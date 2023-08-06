@@ -13,5 +13,5 @@ public interface BlogService {
 
     Blog approveBlog(BlogCreateDTO dto) throws Exception;
 
-
+    Blog getBlog(Long id) throws Exception;
 }

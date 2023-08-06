@@ -79,6 +79,7 @@ public class BlogApplication implements CommandLineRunner {
             user.setFirstName("User Pro");
             user.setLastName("Test");
             user.setRoles(roles);
+            user.setActive(true);
             user.setBillingAddresses(billingAddressList);
             user.setDateOfBirth(OffsetDateTime.of(1990,11,7, 0,0,0,0, ZoneOffset.UTC));
             userRepository.save(user);
