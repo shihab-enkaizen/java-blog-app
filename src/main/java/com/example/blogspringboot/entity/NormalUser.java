@@ -32,5 +32,9 @@ public class NormalUser  {
     @OneToMany
     private List<BlogReaction> blogReactions = new ArrayList<>();
 
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
+
+
 
 }

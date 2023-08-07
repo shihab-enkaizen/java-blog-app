@@ -29,4 +29,7 @@ public class Blog {
     @OneToOne
     private BlogReaction blogReaction;
 
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
+
 }
