@@ -2,7 +2,9 @@ package com.example.blogspringboot;
 
 import com.example.blogspringboot.dao.billingaddress.BillingAddressRepository;
 import com.example.blogspringboot.dto.blog.BlogCreateDTO;
+import com.example.blogspringboot.dto.comment.CommentCreateDTO;
 import com.example.blogspringboot.dto.reaction.BlogReactionDTO;
+import com.example.blogspringboot.dto.reaction.CommentReactionDTO;
 import com.example.blogspringboot.dto.user.UserCreateDTO;
 import com.example.blogspringboot.entity.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -119,7 +121,7 @@ class BlogSpringBootApplicationTests {
         dto.setReactionType(ReactionType.LIKE);
         dto.setUserId(1L);
 
-        mockMvc.perform(post("/api/reactions/blog-reaction/1")
+        mockMvc.perform(post("/api/reactions/blog-reaction")
                         .content(objectMapper.writeValueAsString(dto))
                         .contentType(MediaType.APPLICATION_JSON));
     }
@@ -141,6 +143,67 @@ class BlogSpringBootApplicationTests {
         mockMvc.perform(delete("/api/reactions/blog-reaction/1"));
     }
 
+
+    @Test
+    public void addComment() throws Exception {
+        CommentCreateDTO dto = new CommentCreateDTO();
+        dto.setBlogId(1L);
+        dto.setComment("This is a nice blog");
+        dto.setUserId(1L);
+
+        mockMvc.perform(post("/api/comments")
+                .content(objectMapper.writeValueAsString(dto))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.comment").value("This is a nice blog"));
+    }
+
+    @Test
+    public void updateComment() throws Exception {
+        CommentCreateDTO dto = new CommentCreateDTO();
+        dto.setComment("This is a nice blog updated");
+
+        mockMvc.perform(put("/api/comments/1")
+                        .content(objectMapper.writeValueAsString(dto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.comment").value("This is a nice blog updated"));
+    }
+
+    @Test
+    public void deleteComment() throws Exception {
+        mockMvc.perform(delete("/api/comments/1"));
+    }
+
+    @Test
+    public void addCommentReaction() throws Exception {
+        CommentReactionDTO dto = new CommentReactionDTO();
+        dto.setCommentId(1L);
+        dto.setReactionType(ReactionType.ANGRY);
+        dto.setUserId(1L);
+
+        mockMvc.perform(post("/api/reactions/comment-reaction")
+                .content(objectMapper.writeValueAsString(dto))
+                .contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void updateCommentReaction() throws Exception {
+        CommentReactionDTO dto = new CommentReactionDTO();
+        dto.setCommentId(1L);
+        dto.setReactionType(ReactionType.LOVE);
+        dto.setUserId(1L);
+
+        mockMvc.perform(put("/api/reactions/comment-reaction")
+                .content(objectMapper.writeValueAsString(dto))
+                .contentType(MediaType.APPLICATION_JSON));
+    }
+
+
+    @Test
+    public void deleteCommentReaction() throws Exception {
+        mockMvc.perform(delete("/api/reactions/comment-reaction/1"));
+    }
 
 
 
