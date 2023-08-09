@@ -1,35 +1,35 @@
-create table users
-(
-    id        bigint not null  constraint users_pk primary key,
-    username  varchar(255),
-    email     varchar(255),
-    password  varchar(255),
-    dob       timestamp,
-    firstname Varchar(255),
-    lastname  varchar(255),
-    role      varchar(255)
-);
-
-create table billingaddress
-(
-    id      bigint not null
-        constraint billingaddress_pk primary key,
-    city    varchar(255),
-    address varchar(255),
-    userid  bigint constraint billingaddress_fk_userid references users
-
-);
-
-create table cardinformations
-(
-    id             bigint not null constraint cardinformations_pk primary key,
-    cardnumber     varchar(255),
-    cvc            varchar(5),
-    expiredate     timestamp,
-    cardholdername varchar(255),
-    userid         bigint constraint cardinformations_fk_userid references users
-
-);
+-- create table users
+-- (
+--     id        bigint not null  constraint users_pk primary key,
+--     username  varchar(255),
+--     email     varchar(255),
+--     password  varchar(255),
+--     dob       timestamp,
+--     firstname Varchar(255),
+--     lastname  varchar(255),
+--     role      varchar(255)
+-- );
+--
+-- create table billingaddress
+-- (
+--     id      bigint not null
+--         constraint billingaddress_pk primary key,
+--     city    varchar(255),
+--     address varchar(255),
+--     userid  bigint constraint billingaddress_fk_userid references users
+--
+-- );
+--
+-- create table cardinformations
+-- (
+--     id             bigint not null constraint cardinformations_pk primary key,
+--     cardnumber     varchar(255),
+--     cvc            varchar(5),
+--     expiredate     timestamp,
+--     cardholdername varchar(255),
+--     userid         bigint constraint cardinformations_fk_userid references users
+--
+-- );
 --
 -- create table blogs
 -- (
